@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RentalKendaraan_082.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RentalKendaraan_082.Controllers
 {
@@ -18,6 +19,7 @@ namespace RentalKendaraan_082.Controllers
             _context = context;
         }
 
+        [Authorize(Policy = "readonlypolicy")]
         // GET: Peminjamen
         public async Task<IActionResult> Index(string ktsd, string searchString, string sortOrder, string currentFilter, int? pageNumber)
         {
@@ -108,6 +110,7 @@ namespace RentalKendaraan_082.Controllers
             return View(peminjaman);
         }
 
+        [Authorize(Policy = "writepolicy")]
         // GET: Peminjamen/Create
         public IActionResult Create()
         {
@@ -136,6 +139,7 @@ namespace RentalKendaraan_082.Controllers
             return View(peminjaman);
         }
 
+        [Authorize(Policy = "editpolicy")]
         // GET: Peminjamen/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
